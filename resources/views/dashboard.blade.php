@@ -1,1 +1,5 @@
-<h1>Welcome Mark</h1>
+
+
+<h1>Welcome {{ Auth::guard('web')->user()->name }}</h1>
+
+<a href="{{ route('logout') }}">logout</a>

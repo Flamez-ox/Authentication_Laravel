@@ -1,7 +1,8 @@
 @include ('header')
 
 
-<form method="" action="">
+<form method="POST" action="{{ route ('login_submit') }}">
+    @csrf
   <div class="container">
     <h1>login</h1>
     <br>
@@ -18,6 +19,6 @@
   </div>
   
   <div class="container signin">
-    <p>Don't have an account? <a href="">Sign up</a>.</p>
+    <p>Don't have an account? <a href="{{ route('register') }}">Sign up</a>.</p>
   </div>
 </form>

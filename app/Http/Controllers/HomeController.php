@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 Use Mail;
 Use Auth;
-
+use Illuminate\Support\Facades\Auth as FacadesAuth;
 
 class HomeController extends Controller
 {
@@ -29,6 +29,21 @@ class HomeController extends Controller
     public function login()
     {
        return view('login');
+    }
+
+    public function login_submit(Request $request)
+    {
+        $login = [
+            'email' => $request->email,
+            'password' => $request->password,
+            'status' => 'active',
+        ];
+
+       if ( Auth::attempt($login)) {
+        return redirect()->route('dashboard');
+       }else{
+        return redirect()->route('login');
+       }
     }
 
 
@@ -89,11 +104,14 @@ class HomeController extends Controller
         }
 
         $user->status = 'active';
-        $user->token = $token;
+        $user->token = '';
         $user->update();
 
         echo "Registration verify Successfully";
     }
+
+    
+
 
     /**
      * Update the specified resource in storage.
@@ -109,5 +127,12 @@ class HomeController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function logout()
+    {
+       Auth::guard('web')->logout();
+
+       return redirect()->route('login');
     }
 }

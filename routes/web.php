@@ -27,9 +27,10 @@ Route::get('reg/verify/{token}/{email}', [HomeController::class, "reg"])->name("
 
 
 Route::get('/login', [HomeController::class, "login"])->name("login");
+Route::post('/login_submit', [HomeController::class, "login_submit"])->name("login_submit");
+
+Route::get('/logout',[HomeController::class, 'logout'])->name('logout');
 
 
 
-
-
-Route::get('/dashboard', [HomeController::class, "dashboard"])->name("dashboard");
+Route::get('/dashboard', [HomeController::class, "dashboard"])->name("dashboard")->middleware('auth');
